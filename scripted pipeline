@@ -1,0 +1,24 @@
+node('built-in'){
+    stage('Continous download'){
+        git branch: 'main', url: 'https://github.com/AnkitaCodder/Git1_first.git'
+    }
+    
+    
+    stage('Continous build'){
+        sh 'python3 practice.py'
+    }
+    
+    
+    stage('Continous deplyment'){
+        sh 'scp "/var/lib/jenkins/workspace/Pipeline for include git/practice.py" ubuntu@172.31.27.133:/home/ubuntu/test/practice.py'
+
+    }
+    
+    stage('Continous testing'){
+        sh 'python3 "/var/lib/jenkins/workspace/Pipeline for include git/practice.py"'
+    }
+    stage('Continous release'){
+        sh 'scp "/var/lib/jenkins/workspace/Pipeline for include git/practice.py" ubuntu@172.31.27.133:/home/ubuntu/test/practice.py'
+        
+    }
+}
