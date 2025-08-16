@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Continous download') {
+            steps {
+                git branch: 'main', url: 'https://github.com/AnkitaCodder/Git1_first.git'
+            }
+        }
+        
+        stage('Continous built'){
+            steps{
+                sh 'python3 practice.py'
+            }
+        }
+        
+        stage('Continous deployment'){
+            steps{
+                sh 'scp "/var/lib/jenkins/workspace/Pipeline for include git/practice.py" ubuntu@172.31.27.133:/home/ubuntu/test/practice.py'
+            }
+        }
+        
+        stage('Continous testing'){
+            steps{
+                sh 'python3 "/var/lib/jenkins/workspace/Pipeline for include git/practice.py"'
+            }
+        }
+        
+        stage('Continous release'){
+            steps{
+                sh 'scp "/var/lib/jenkins/workspace/Pipeline for include git/practice.py" ubuntu@172.31.27.133:/home/ubuntu/test/practice.py'
+            }
+        }
+    }
+}
