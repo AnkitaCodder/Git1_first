@@ -1,0 +1,51 @@
+@Library('sharedlib1') _
+pipeline{
+    agent any
+    stages{
+        stage('Continous Download'){
+            steps{
+                script{
+                    pipelinecicd.gitdownload('Git1_first')
+                }
+            }
+        }
+        stage('Continous build'){
+            steps{
+                script{
+                    pipelinecicd.build()
+                }
+            }
+        }
+        stage('Continous deployment'){
+            steps{
+                script{
+                    pipelinecicd.deployment('sharedlibrary2','172.31.27.133')
+                }
+            }
+        }
+        
+        stage('Continous testing'){
+            steps{
+                script{
+                    pipelinecicd.testing('sharedlibrary2')
+                }
+            }
+        }
+        
+        stage('Continous release'){
+            steps{
+                script{
+                    pipelinecicd.release('sharedlibrary2', '172.31.27.133')
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+}
