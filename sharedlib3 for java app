@@ -1,0 +1,51 @@
+@Library('sharedlib1') _
+pipeline{
+    agent any
+    stages{
+        stage('continous download'){
+            steps{
+                script{
+                    picicd.gitdownload('Git1_first')
+                }
+                
+            }
+        }
+        
+        stage('continous build'){
+            steps{
+                script{
+                    picicd.build()
+                }
+                
+            }
+        }
+        
+        stage('continous Deployment'){
+            steps{
+                script{
+                    picicd.deployment('sharedlibrary3', '172.31.27.133')
+                }
+                
+            }
+        }
+        
+        stage('continous testing'){
+            steps{
+                script{
+                    picicd.testing('sharedlibrary3')
+                }
+                
+            }
+        }
+        
+        stage('continous release'){
+            steps{
+                script{
+                    picicd.release('sharedlibrary3', '172.31.27.133' )
+                }
+                
+            }
+        }
+        
+    }
+}
